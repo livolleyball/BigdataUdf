@@ -1,7 +1,6 @@
 package test;
 
-import com.hive.udf.h3.GenericUDFH3kRing;
-import com.hive.udf.h3.UDFH3Encode;
+import com.hive.udf.h3.*;
 import org.apache.hadoop.hive.ql.metadata.HiveException;
 import org.apache.hadoop.hive.ql.udf.generic.GenericUDF;
 import org.apache.hadoop.hive.serde2.io.DoubleWritable;
@@ -9,6 +8,8 @@ import org.apache.hadoop.hive.serde2.objectinspector.ObjectInspector;
 import org.apache.hadoop.hive.serde2.objectinspector.primitive.PrimitiveObjectInspectorFactory;
 import org.apache.hadoop.io.IntWritable;
 import org.junit.Test;
+
+import java.util.ArrayList;
 
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -61,6 +62,68 @@ public class TestH3 {
         assertTrue(hexagons.toString().contains("89283082873ffff"));
         assertTrue(hexagons.toString().contains("8928308283bffff"));
 
+    }
+
+    @Test
+    public  void testUDFh3ToGeoBoundary() throws HiveException {
+        UDFH3ToGeoBoundary udf = new com.hive.udf.h3.UDFH3ToGeoBoundary();
+        ObjectInspector stringOI = PrimitiveObjectInspectorFactory.javaStringObjectInspector;
+        ObjectInspector resultInspector = udf.initialize(new ObjectInspector[]{stringOI});
+//        ArrayList<HashMap<String,Double>> hexagons = (ArrayList<HashMap<String, Double>>) udf.evaluate(new GenericUDF.DeferredObject[]
+//                {new GenericUDF.DeferredJavaObject("8928308280fffff"),
+//                     });
+        ArrayList<StringBuilder> hexagons = (ArrayList<StringBuilder>) udf.evaluate(new GenericUDF.DeferredObject[]
+                {new GenericUDF.DeferredJavaObject("8928308280fffff"),
+                });
+        System.out.println(hexagons);
+        for (int i = 0; i < 5; i++) {
+            System.out.println(hexagons.get(i));
+        }
+
+        System.out.println(hexagons.toString());
+    }
+
+
+    @Test
+    public  void testUDFh3ToGeoBoundaryGCJ() throws HiveException {
+        GenericUDFH3ToGeoBoundaryGCJ udf = new com.hive.udf.h3.GenericUDFH3ToGeoBoundaryGCJ();
+        ObjectInspector stringOI = PrimitiveObjectInspectorFactory.javaStringObjectInspector;
+        ObjectInspector resultInspector = udf.initialize(new ObjectInspector[]{stringOI});
+//        ArrayList<HashMap<String,Double>> hexagons = (ArrayList<HashMap<String, Double>>) udf.evaluate(new GenericUDF.DeferredObject[]
+//                {new GenericUDF.DeferredJavaObject("8928308280fffff"),
+//                     });
+        ArrayList<StringBuilder> hexagons = (ArrayList<StringBuilder>) udf.evaluate(new GenericUDF.DeferredObject[]
+                {new GenericUDF.DeferredJavaObject("8840de0463fffff"),
+                });
+        System.out.println(hexagons);
+        for (int i = 0; i <= 5; i++) {
+            System.out.println(hexagons.get(i));
+        }
+
+        System.out.println(hexagons.toString());
+    }
+
+    @Test
+    public  void testUDFh3ToGeo() throws HiveException {
+        UDFH3ToGeo udf = new com.hive.udf.h3.UDFH3ToGeo();
+        ObjectInspector stringOI = PrimitiveObjectInspectorFactory.javaStringObjectInspector;
+        ObjectInspector resultInspector = udf.initialize(new ObjectInspector[]{stringOI});
+        Object hexagons = udf.evaluate(new GenericUDF.DeferredObject[]
+                {new GenericUDF.DeferredJavaObject("873093c4effffff"),
+                });
+        System.out.println(hexagons.toString());
+    }
+
+
+    @Test
+    public  void testUDFh3ToGeoCGJ() throws HiveException {
+        GenericUDFH3ToGeoGCJ udf = new com.hive.udf.h3.GenericUDFH3ToGeoGCJ();
+        ObjectInspector stringOI = PrimitiveObjectInspectorFactory.javaStringObjectInspector;
+        ObjectInspector resultInspector = udf.initialize(new ObjectInspector[]{stringOI});
+        Object hexagons = udf.evaluate(new GenericUDF.DeferredObject[]
+                {new GenericUDF.DeferredJavaObject("8840de0463fffff"),
+                });
+        System.out.println(hexagons.toString());
     }
 
 }
