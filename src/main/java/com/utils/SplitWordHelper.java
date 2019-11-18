@@ -24,7 +24,7 @@ public class SplitWordHelper {
                 num.append(" ");
                 en.append(" ");
 
-            } else if (c[i] > '\u4e00' && c[i] < '\u9fa5') {
+            } else if (c[i] >= '\u4e00' && c[i] <= '\u9fa5') {
                 cn.append(c[i]);
                 num.append(" ");
                 en.append(" ");
@@ -57,7 +57,8 @@ public class SplitWordHelper {
 
     public static void main(String[] args) {
 
-        System.out.println(SplitWordByType("无锡彩艳公寓(7号店1楼) KTV  honey 12999 85 "));
+        System.out.println(SplitWordByType("同一首歌KTV KTV  honey 12999 85 "));
+        System.out.println(SplitWordByType("无锡彩艳公寓(7号店1楼)  "));
 //        System.out.println(newstr2);
 
     }
