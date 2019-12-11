@@ -41,6 +41,11 @@ public class SplitWordHelper {
                 num.append(" ");
                 en.append(c[i]);
 
+                // 除 中文 汉字 英文 以外的字节 填充 ' '
+            } else {
+                cn.append(" ");
+                num.append(" ");
+                en.append(" ");
             }
         }
 
@@ -59,6 +64,7 @@ public class SplitWordHelper {
 
         System.out.println(SplitWordByType("同一首歌KTV KTV  honey 12999 85 "));
         System.out.println(SplitWordByType("无锡彩艳公寓(7号店1楼)  "));
+        System.out.println(SplitWordByType("上海巴黎春天新世界酒店-礼宾部"));
 //        System.out.println(newstr2);
 
     }

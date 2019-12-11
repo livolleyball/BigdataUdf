@@ -13,6 +13,7 @@ import java.util.Map;
  */
 public class GeoUtils {
     private static final double xPi = 3.14159265358979324 * 3000.0 / 180.0;
+    private static final double selfPI= 3.1415926535897932384626;
     private static final double a = 6378245.0;
     private static final double ee = 0.00669342162296594323;
     private static final double radius = 6371000.0;
@@ -195,5 +196,15 @@ public class GeoUtils {
 
         Map<String, Double> gd_bd=GCJ02ToBD09(40.584112266295506,117.00812214780241);
         System.out.println(gd_bd);
+
+        Map<String, Double> gd_e_wgs=GCJ02ExtractWGS84(31.3011020000,121.5173450000);
+        System.out.println(gd_e_wgs);
+
+        Map<String, Double> gd_wgs=GCJ02ToWGS84(31.3011020000,121.5173450000);
+        System.out.println(gd_wgs);
+        System.out.println(Math.PI);
+
+//        3.1415926535897932384626
+
     }
 }
